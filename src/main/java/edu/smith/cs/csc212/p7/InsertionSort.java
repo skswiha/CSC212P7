@@ -6,13 +6,21 @@ import edu.smith.cs.csc212.adtr.real.JavaList;
 public class InsertionSort {
 	public static void insertionSort(ListADT<Integer> input) {
 		ListADT<Integer> sorted = new JavaList<>();
-		sorted.addBack(input.getFront());
+		sorted.addFront(input.getFront());
 		input.removeFront();
-		for(Integer i : input) {
-			for(int j = 0; i < sorted.size(); i++) {
-				if (i < sorted.getIndex(j)) {
-					sorted.addIndex(j, i);
+		while (input.size() > 0) {
+			Integer toSort = input.getFront();
+			int count = 0;
+			for(Integer i : sorted) {
+				if ((count == 0 || toSort > sorted.getIndex(count - 1)) && toSort <= i) {
+					sorted.addIndex(count, toSort);
+					break;
 				}
+				else if (count == sorted.size()-1) {
+					sorted.addBack(i);
+					break;
+				}
+				count ++;
 			}
 			input.removeFront();
 		}
