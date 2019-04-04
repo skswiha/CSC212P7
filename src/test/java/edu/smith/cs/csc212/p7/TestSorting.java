@@ -146,7 +146,70 @@ public class TestSorting {
 		Assert.assertEquals(sortMe.size(), 9);
 
 	}
+	
+	@Test
+	public void testMergeCombine() {
+		ListADT<Integer> sortMe1 = new JavaList<>(Arrays.asList(11, 14, 35, 47, 88));
+		ListADT<Integer> sortMe2 = new JavaList<>(Arrays.asList(24, 27, 41, 62));
+		ListADT<Integer> merged = MergeSort.combineHelper(sortMe1, sortMe2);
+		Assert.assertTrue(checkSorted(merged));
+		
+		// check it is the original size
+		Assert.assertEquals(merged.size(), 9);
+		
+		Random rand = new Random(13);
+		// For good measure, let's shuffle it and sort it again to see if that works, too.
+		ListADT<Integer> sortMe3 = new JavaList<>(Arrays.asList(11, 14, 35, 47, 88));
+		ListADT<Integer> sortMe4 = new JavaList<>(Arrays.asList(24, 27, 41, 62));
+		sortMe1.shuffle(rand);
+		sortMe2.shuffle(rand);
+		merged = MergeSort.combineHelper(sortMe3, sortMe4);
+		Assert.assertTrue(checkSorted(merged));
+		
+		// check it is the original size
+		Assert.assertEquals(merged.size(), data.length);
 
+	}
+	
+	@Test
+	public void testRecursiveMerge() {
+		ListADT<Integer> sortMe = new JavaList<>(Arrays.asList(35, 88, 11, 47, 14, 24, 41, 62, 27));
+		ListADT<Integer> merged = MergeSort.recursiveMergeSort(sortMe);
+		Assert.assertTrue(checkSorted(merged));
+		
+		// check it is the original size
+		Assert.assertEquals(merged.size(), 9);
+		
+		Random rand = new Random(13);
+		// For good measure, let's shuffle it and sort it again to see if that works, too.
+		sortMe.shuffle(rand);
+		System.out.println(sortMe.toJava());
+		merged = MergeSort.recursiveMergeSort(sortMe);
+		Assert.assertTrue(checkSorted(merged));
+		
+		// check it is the original size
+		Assert.assertEquals(merged.size(), data.length);
+	}
+	
+	@Test
+	public void testIterativeMerge() {
+		ListADT<Integer> sortMe = new JavaList<>(Arrays.asList(35, 88, 11, 47, 14, 24, 41, 62, 27));
+		ListADT<Integer> merged = MergeSort.iterativeMergeSort(sortMe);
+		Assert.assertTrue(checkSorted(merged));
+		
+		// check it is the original size
+		Assert.assertEquals(merged.size(), 9);
+		
+		Random rand = new Random(13);
+		// For good measure, let's shuffle it and sort it again to see if that works, too.
+		sortMe.shuffle(rand);
+		System.out.println(sortMe.toJava());
+		merged = MergeSort.iterativeMergeSort(sortMe);
+		Assert.assertTrue(checkSorted(merged));
+		
+		// check it is the original size
+		Assert.assertEquals(merged.size(), data.length);
+	}
 
 }
 
